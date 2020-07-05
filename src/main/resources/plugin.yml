@@ -1,0 +1,11 @@
+name: mcGUICI
+version: 1.0.0-SNAPSHOT-rev000
+description: mcGUICI is a simple Minecraft GUI by Container Inventory (mcGUICI) Library that allows for quick, customizable menus with programmable features.
+authors: [cjohnson]
+website: github.com/cjohnson/mcguici
+
+main: org.cjohnson.mcguici.mcguici.McGUICI
+
+api-version: 1.16
+
+prefix: mcGUICI
