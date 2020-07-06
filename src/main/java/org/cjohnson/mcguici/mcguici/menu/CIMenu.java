@@ -13,7 +13,7 @@ public class CIMenu {
     private String name;
     private int rows;
 
-    private ArrayList<CIMenuElement> elements;
+    private ArrayList<ArrayList<CIMenuElement>> elementsByRow;
 
     private CIMenuAlign align;
 
@@ -21,7 +21,7 @@ public class CIMenu {
         this.name = ciMenuBuilder.getName();
         this.rows = ciMenuBuilder.getRows();
 
-        this.elements = ciMenuBuilder.getMenuElements();
+        this.elementsByRow = ciMenuBuilder.getMenuElementsByRow();
 
         this.align = ciMenuBuilder.getAlign();
 
@@ -31,8 +31,65 @@ public class CIMenu {
     private void setupBukkitMenu() {
         this.bInventory = Bukkit.createInventory(null, rows * 9, name);
 
-        for(CIMenuElement element : elements) {
+        placeMenuElements();
+    }
 
+    private void placeMenuElements() {
+        switch(align) {
+            case LEFT_ALIGN:
+                placeLeftAlignMenuElements();
+                break;
+            case CENTER_ALIGN:
+                break;
+            case RIGHT_ALIGN:
+                break;
+        }
+    }
+
+    private void placeLeftAlignMenuElements() {
+        int currentSizeRowElements;
+        ArrayList<CIMenuElement> currentRowElements;
+
+        for(int i = 0; i < rows; i++) {
+            currentRowElements = elementsByRow.get(i);
+            currentSizeRowElements = currentRowElements.size();
+
+            for(int j = 0; j < currentSizeRowElements; j++) {
+                bInventory.setItem(j, currentRowElements.get(j).getFace());
+            }
+        }
+    }
+
+    private void placeCenterAlignMenuElements() {
+        int currentSizeRowElements;
+        ArrayList<CIMenuElement> currentRowElements;
+
+        int rowCenterBegin;
+        int rowDisplacement;
+
+        for(int i = 0; i < rows; i++) {
+            currentRowElements = elementsByRow.get(i);
+            currentSizeRowElements = currentRowElements.size();
+
+            rowCenterBegin = (9 - currentSizeRowElements) / 2;
+
+            for(int j = rowCenterBegin; j < currentSizeRowElements + rowCenterBegin; j++) {
+                bInventory.setItem(j, currentRowElements.get(j).getFace());
+            }
+        }
+    }
+
+    private void placeRightAlignMenuElements() {
+        int currentSizeRowElements;
+        ArrayList<CIMenuElement> currentRowElements;
+
+        for(int i = 0; i < rows; i++) {
+            currentRowElements = elementsByRow.get(i);
+            currentSizeRowElements = currentRowElements.size();
+
+            for(int j = 8; j > 9 - currentSizeRowElements; j--) {
+                bInventory.setItem(j, currentRowElements.get(8 - j).getFace());
+            }
         }
     }
 
@@ -44,7 +101,7 @@ public class CIMenu {
         private String name;
         private int rows;
 
-        private ArrayList<CIMenuElement> menuElements;
+        private ArrayList<ArrayList<CIMenuElement>> menuElementsByRow;
 
         private CIMenuAlign align;
 
@@ -52,7 +109,7 @@ public class CIMenu {
             this.name = DEFAULT_INVENTORY_NAME;
             this.rows = DEFAULT_ROWS;
 
-            this.menuElements = new ArrayList<>();
+            this.menuElementsByRow = new ArrayList<>(this.rows);
 
             this.align = DEFAULT_ALIGN;
         }
@@ -61,8 +118,9 @@ public class CIMenu {
             return new CIMenu(this);
         }
 
-        public boolean addMenuElement(CIMenuElement ciMenuElement) {
-            return menuElements.add(ciMenuElement);
+        public CIMenuBuilder addMenuElement(int row, CIMenuElement ciMenuElement) {
+            menuElementsByRow.get(row).add(ciMenuElement);
+            return this;
         }
 
         public String getName() {
@@ -83,12 +141,12 @@ public class CIMenu {
             return this;
         }
 
-        public ArrayList<CIMenuElement> getMenuElements() {
-            return menuElements;
+        public ArrayList<ArrayList<CIMenuElement>> getMenuElementsByRow() {
+            return menuElementsByRow;
         }
 
-        public void setMenuElements(ArrayList<CIMenuElement> menuElements) {
-            this.menuElements = menuElements;
+        public void setMenuElementsByRow(ArrayList<ArrayList<CIMenuElement>> menuElementsByRow) {
+            this.menuElementsByRow = menuElementsByRow;
         }
 
         public CIMenuAlign getAlign() {
