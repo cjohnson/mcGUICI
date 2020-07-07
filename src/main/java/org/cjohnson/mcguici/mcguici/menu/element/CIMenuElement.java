@@ -1,10 +1,16 @@
 package org.cjohnson.mcguici.mcguici.menu.element;
 
+import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 
 public class CIMenuElement implements ICIMenuElementInteraction {
     private ItemStack face;
     private ICIMenuElementInteraction interaction;
+
+    public CIMenuElement() {
+        this.face = new ItemStack(Material.AIR);
+        this.interaction = () -> {};
+    }
 
     public CIMenuElement(ItemStack face, ICIMenuElementInteraction interaction) {
         this.face = face;
