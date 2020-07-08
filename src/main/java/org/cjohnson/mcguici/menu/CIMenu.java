@@ -108,11 +108,6 @@ public class CIMenu {
 
             menuElementsByRow.add(new ArrayList<>(9));
 
-            System.out.println("SIZE BEFORE ERROR: " + menuElementsByRow.size());
-            ArrayList<CIMenuElement> test1 = menuElementsByRow.get(currentRow);
-
-            test1.add(0, new CIMenuElement());
-
             for(int i = 0; i < 9; i++)
                 menuElementsByRow.get(currentRow).add(i, new CIMenuElement());
 

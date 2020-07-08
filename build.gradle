@@ -1,6 +1,9 @@
 import org.apache.tools.ant.filters.ReplaceTokens
 
-apply plugin: 'java'
+plugins {
+    id 'com.github.johnrengelman.shadow' version '5.2.0'
+    id 'java'
+}
 
 group = 'org.cjohnson.mcguici'
 version = '1.0.0-SNAPSHOT-rev000'
@@ -9,22 +12,20 @@ sourceCompatibility = targetCompatibility = JavaVersion.VERSION_1_8
 
 repositories {
     mavenCentral()
-    maven {
-        name = 'papermc-repo'
-        url = 'https://papermc.io/repo/repository/maven-public/'
-    }
-    maven {
-        name = 'sonatype'
-        url = 'https://oss.sonatype.org/content/groups/public/'
-    }
+    maven { url = "https://repo.aikar.co/content/groups/aikar/" }
+    maven { url = 'https://papermc.io/repo/repository/maven-public/' }
+    maven { url = 'https://oss.sonatype.org/content/groups/public/' }
 }
 
-test {
-    useJUnitPlatform()
+compileJava {
+    options.compilerArgs += ["-parameters"]
+    options.fork = true
+    options.forkOptions.executable = 'javac'
 }
 
 dependencies {
     compileOnly 'com.destroystokyo.paper:paper-api:1.16.1-R0.1-SNAPSHOT'
+    compile "co.aikar:acf-paper:0.5.0-SNAPSHOT"
 }
 
 processResources {
@@ -32,3 +33,10 @@ processResources {
         filter ReplaceTokens, tokens: [version: version]
     }
 }
+
+shadowJar {
+    relocate 'co.aikar.commands', '[YOUR PLUGIN PACKAGE].acf'
+    relocate 'co.aikar.locales', '[YOUR PLUGIN PACKAGE].locales'
+}
+
+build.dependsOn shadowJar

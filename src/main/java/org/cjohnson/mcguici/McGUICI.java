@@ -1,5 +1,6 @@
 package org.cjohnson.mcguici;
 
+import co.aikar.commands.PaperCommandManager;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -14,7 +15,9 @@ public final class McGUICI extends JavaPlugin {
     public void onEnable() {
         this.getServer().getPluginManager().registerEvents(new CIInventoryEventManager(), this);
 
-        this.getCommand("menu").setExecutor(new CommandMenu());
+        PaperCommandManager paperCommandManager = new PaperCommandManager(this);
+
+        paperCommandManager.registerCommand(new CommandMenu());
 
         // Quick Test Case
         CIMenu ciMenu = new CIMenu.CIMenuBuilder() // ROW 0
