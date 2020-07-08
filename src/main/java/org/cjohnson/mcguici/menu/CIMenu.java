@@ -1,10 +1,11 @@
-package org.cjohnson.mcguici.mcguici.menu;
+package org.cjohnson.mcguici.menu;
 
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
-import org.cjohnson.mcguici.mcguici.menu.element.CIMenuElement;
+import org.cjohnson.mcguici.McGUICI;
+import org.cjohnson.mcguici.menu.element.CIMenuElement;
 
 import java.util.ArrayList;
 
@@ -54,6 +55,30 @@ public class CIMenu {
         }
     }
 
+    public Inventory getInventory() {
+        return bInventory;
+    }
+
+    public void setInventory(Inventory bInventory) {
+        this.bInventory = bInventory;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public ArrayList<ArrayList<CIMenuElement>> getElementsByRow() {
+        return elementsByRow;
+    }
+
+    public void setElementsByRow(ArrayList<ArrayList<CIMenuElement>> elementsByRow) {
+        this.elementsByRow = elementsByRow;
+    }
+
     public static class CIMenuBuilder {
         public static final String DEFAULT_INVENTORY_NAME = "mcGUICI Inventory";
 
@@ -69,6 +94,9 @@ public class CIMenu {
             this.menuElementsByRow = new ArrayList<>();
 
             this.currentRow = 0;
+
+            //Initial Row
+            menuElementsByRow.add(new ArrayList<>(9));
         }
 
         public CIMenu build() {
@@ -78,7 +106,12 @@ public class CIMenu {
         public CIMenuBuilder addRow() {
             currentRow++;
 
-            menuElementsByRow.add(new ArrayList<>());
+            menuElementsByRow.add(new ArrayList<>(9));
+
+            System.out.println("SIZE BEFORE ERROR: " + menuElementsByRow.size());
+            ArrayList<CIMenuElement> test1 = menuElementsByRow.get(currentRow);
+
+            test1.add(0, new CIMenuElement());
 
             for(int i = 0; i < 9; i++)
                 menuElementsByRow.get(currentRow).add(i, new CIMenuElement());

@@ -1,4 +1,4 @@
-package org.cjohnson.mcguici.mcguici.menu.configuration;
+package org.cjohnson.mcguici.menu.configuration;
 
 public enum CIMenuAlign {
     LEFT_ALIGN,

@@ -4,8 +4,12 @@ description: mcGUICI is a simple Minecraft GUI by Container Inventory (mcGUICI) 
 authors: [cjohnson]
 website: github.com/cjohnson/mcguici
 
-main: org.cjohnson.mcguici.mcguici.McGUICI
+main: org.cjohnson.mcguici.McGUICI
 
-api-version: 1.16
+api-version: 1.13
 
 prefix: mcGUICI
+
+commands:
+  menu:
+    description: WIP

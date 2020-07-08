@@ -1,4 +1,4 @@
-package org.cjohnson.mcguici.mcguici.menu.element;
+package org.cjohnson.mcguici.menu.element;
 
 import org.bukkit.Material;
 import org.bukkit.entity.Player;

@@ -1,4 +1,4 @@
-package org.cjohnson.mcguici.mcguici.manager;
+package org.cjohnson.mcguici.manager;
 
 import org.bukkit.entity.HumanEntity;
 import org.bukkit.entity.Player;
@@ -7,8 +7,8 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
-import org.cjohnson.mcguici.mcguici.menu.CIMenu;
-import org.cjohnson.mcguici.mcguici.menu.element.CIMenuElement;
+import org.cjohnson.mcguici.menu.CIMenu;
+import org.cjohnson.mcguici.menu.element.CIMenuElement;
 
 import java.util.ArrayList;
 
@@ -36,6 +36,8 @@ public class CIInventoryEventManager implements Listener {
                     return;
 
                 menuElement.onInteract((Player) player);
+
+                event.setCancelled(true);
             }
         }
     }
@@ -44,7 +46,11 @@ public class CIInventoryEventManager implements Listener {
         return managedInventories.get(index);
     }
 
-    public static boolean addMenu(CIMenu ciMenu) {
-        return managedInventories.add(ciMenu);
+    public static void addMenu(CIMenu ciMenu) {
+        managedInventories.add(ciMenu);
+    }
+
+    public static ArrayList<CIMenu> getManagedInventories() {
+        return managedInventories;
     }
 }
