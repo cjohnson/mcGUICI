@@ -1,6 +1,7 @@
 package org.cjohnson.mcguici.mcguici.menu.element;
 
 import org.bukkit.Material;
+import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 public class CIMenuElement implements ICIMenuElementInteraction {
@@ -9,7 +10,12 @@ public class CIMenuElement implements ICIMenuElementInteraction {
 
     public CIMenuElement() {
         this.face = new ItemStack(Material.AIR);
-        this.interaction = () -> {};
+        this.interaction = (player) -> {};
+    }
+
+    public CIMenuElement(ItemStack face) {
+        this.face = face;
+        this.interaction = (player) -> {};
     }
 
     public CIMenuElement(ItemStack face, ICIMenuElementInteraction interaction) {
@@ -18,8 +24,8 @@ public class CIMenuElement implements ICIMenuElementInteraction {
     }
 
     @Override
-    public void onInteract() {
-        interaction.onInteract();
+    public void onInteract(Player player) {
+        interaction.onInteract(player);
     }
 
     public ItemStack getFace() {
