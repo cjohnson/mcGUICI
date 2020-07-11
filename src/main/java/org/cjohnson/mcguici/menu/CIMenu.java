@@ -12,6 +12,7 @@ import java.util.ArrayList;
 public class CIMenu {
     private Inventory bInventory;
 
+    //TODO Add Saving functionality
     private String name;
 
     private ArrayList<ArrayList<CIMenuElement>> elementsByRow;
