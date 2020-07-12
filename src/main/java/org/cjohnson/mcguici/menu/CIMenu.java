@@ -4,7 +4,6 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
-import org.cjohnson.mcguici.McGUICI;
 import org.cjohnson.mcguici.menu.element.CIMenuElement;
 
 import java.util.ArrayList;
